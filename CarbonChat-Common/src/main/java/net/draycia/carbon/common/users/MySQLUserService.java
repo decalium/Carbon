@@ -311,7 +311,7 @@ public class MySQLUserService<T extends PlayerUser, C extends ConsoleUser> imple
       }
 
       this.carbonChat.logger().info("Saving user data!");
-      stm.executeUpdateQuery("INSERT INTO sc_users (uuid, channel, muted, shadowmuted, spyingwhispers, nickname, customchatcolor, whisperpingkey, whisperpingvolume " +
+      stm.executeUpdateQuery("INSERT INTO sc_users (uuid, channel, muted, shadowmuted, spyingwhispers, nickname, customchatcolor, whisperpingkey, whisperpingvolume, " +
           "whisperpingpitch, channelpingkey, channelpingvolume, channelpingpitch) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
           "ON DUPLICATE KEY UPDATE channel = ?, muted = ?, shadowmuted = ?, spyingwhispers = ?, nickname = ?, customchatcolor = ?, whisperpingkey = ?, whisperpingvolume = ?, " +
           "whisperpingpitch = ?, channelpingkey = ?, channelpingvolume = ?, channelpingpitch = ?",
