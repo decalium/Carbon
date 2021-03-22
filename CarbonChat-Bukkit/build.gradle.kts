@@ -72,7 +72,7 @@ tasks {
   withType<ShadowJar> {
     minimize()
     archiveFileName.set(project.description + "-" + Versions.CARBON_BASE + ".jar")
-    destinationDirectory.set(rootProject.getBuildDir())
+    destinationDirectory.set(rootProject.buildDir)
     relocate("org.yaml", "net.draycia.carbon.libs.org.yaml")
     relocate("net.kyori.adventure.text.minimessage", "net.draycia.carbon.libs.minimessage")
     relocate("org.spongepowered.configurate", "net.draycia.carbon.libs.configurate")

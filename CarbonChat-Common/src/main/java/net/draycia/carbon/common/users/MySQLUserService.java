@@ -23,6 +23,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.intellij.lang.annotations.Subst;
 
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
@@ -187,11 +188,11 @@ public class MySQLUserService<T extends PlayerUser, C extends ConsoleUser> imple
       final List<DbRow> channelSettings = this.database.getResults("SELECT * from sc_channel_settings WHERE uuid = ?;", uuid.toString());
       final List<DbRow> ignoredUsers = this.database.getResults("SELECT * from sc_ignored_users WHERE uuid = ?;", uuid.toString());
 
-      final ChatChannel channel = this.carbonChat.channelRegistry().getOrDefault(users.getString("channel"));
+      final ChatChannel channel = this.carbonChat.channelRegistry().getOrDefault(users.get("channel"));
 
       user.selectedChannel(channel, true);
 
-      final String nickname = users.getString("nickname");
+      final String nickname = users.get("nickname");
 
       if (nickname != null) {
         user.nickname(this.carbonChat.gsonSerializer().deserialize(nickname), true);
@@ -202,9 +203,9 @@ public class MySQLUserService<T extends PlayerUser, C extends ConsoleUser> imple
       user.spyingWhispers(users.get("spyingwhispers"), true);
       user.customChatColor(users.get("customchatcolor"), true);
 
-      final String whisperPingKey = users.getString("whisperpingkey");
-      final Float whisperPingVolume = users.getFloat("whisperpingvolume");
-      final Float whisperPingPitch = users.getFloat("whisperpingpitch");
+      final @Subst("block.bell.resonate") String whisperPingKey = users.get("whisperpingkey");
+      final Float whisperPingVolume = users.get("whisperpingvolume");
+      final Float whisperPingPitch = users.get("whisperpingpitch");
 
       final Sound whisperSound;
 
@@ -214,9 +215,9 @@ public class MySQLUserService<T extends PlayerUser, C extends ConsoleUser> imple
         whisperSound = null;
       }
 
-      final String channelPingKey = users.getString("channelpingkey");
-      final Float channelPingVolume = users.getFloat("channelpingvolume");
-      final Float channelPingPitch = users.getFloat("channelpingpitch");
+      final @Subst("block.bell.resonate") String channelPingKey = users.get("channelpingkey");
+      final Float channelPingVolume = users.get("channelpingvolume");
+      final Float channelPingPitch = users.get("channelpingpitch");
 
       final Sound channelSound;
 
@@ -237,7 +238,7 @@ public class MySQLUserService<T extends PlayerUser, C extends ConsoleUser> imple
           settings.spying(channelSetting.<Boolean>get("spying"), true);
           settings.ignoring(channelSetting.<Boolean>get("ignored"), true);
 
-          final String color = channelSetting.getString("color");
+          final String color = channelSetting.get("color");
 
           if (color != null) {
             settings.color(TextColor.fromHexString(color), true);
@@ -246,7 +247,7 @@ public class MySQLUserService<T extends PlayerUser, C extends ConsoleUser> imple
       }
 
       for (final DbRow ignoredUser : ignoredUsers) {
-        user.ignoringUser(UUID.fromString(ignoredUser.getString("user")), true, true);
+        user.ignoringUser(UUID.fromString(ignoredUser.get("user")), true, true);
       }
     } catch (final SQLException exception) {
       exception.printStackTrace();
@@ -299,7 +300,6 @@ public class MySQLUserService<T extends PlayerUser, C extends ConsoleUser> imple
         channelPitch = null;
       }
 
-      // TODO: what happens when the saved nickname isn't json?
       final Component nicknameComponent = user.nickname();
 
       final String nickname;

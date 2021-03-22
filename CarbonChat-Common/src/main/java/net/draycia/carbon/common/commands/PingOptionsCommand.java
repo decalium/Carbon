@@ -13,6 +13,7 @@ import net.draycia.carbon.api.users.PlayerUser;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.intellij.lang.annotations.Subst;
 
 public class PingOptionsCommand {
 
@@ -56,7 +57,9 @@ public class PingOptionsCommand {
   }
 
   private void channelOptions(final @NonNull CommandContext<CarbonUser> context) {
-    ((PlayerUser) context.getSender()).pingOptions().pingSound(Sound.sound(Key.key(context.get("sound")),
+    @Subst("block.bell.resonate") String soundKey = context.get("sound");
+
+    ((PlayerUser) context.getSender()).pingOptions().pingSound(Sound.sound(Key.key(soundKey),
       Sound.Source.PLAYER, context.get("volume"), context.get("pitch")));
 
     context.getSender().sendMessage(this.carbonChat.messageProcessor().processMessage(
@@ -64,7 +67,10 @@ public class PingOptionsCommand {
   }
 
   private void whisperOptions(final @NonNull CommandContext<CarbonUser> context) {
-    ((PlayerUser) context.getSender()).pingOptions().whisperSound(Sound.sound(Key.key(context.get("sound")),
+    @Subst("block.bell.resonate") String soundKey = context.get("sound");
+
+
+    ((PlayerUser) context.getSender()).pingOptions().whisperSound(Sound.sound(Key.key(soundKey),
       Sound.Source.PLAYER, context.get("volume"), context.get("pitch")));
 
     context.getSender().sendMessage(this.carbonChat.messageProcessor().processMessage(
