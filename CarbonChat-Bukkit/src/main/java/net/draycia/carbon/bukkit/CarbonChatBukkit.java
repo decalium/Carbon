@@ -5,7 +5,7 @@ import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.paper.PaperCommandManager;
 import net.draycia.carbon.api.channels.ChatChannel;
 import net.draycia.carbon.bukkit.config.CarbonBukkitSettings;
-import net.draycia.carbon.bukkit.listeners.BukkitChatListener;
+import net.draycia.carbon.bukkit.listeners.BukkitChatHandler;
 import net.draycia.carbon.bukkit.listeners.ItemLinkHandler;
 import net.draycia.carbon.bukkit.messaging.BungeeMessageService;
 import net.draycia.carbon.bukkit.users.BukkitConsoleUser;
@@ -205,7 +205,7 @@ public final class CarbonChatBukkit extends JavaPlugin implements CarbonChat {
     final PluginManager pluginManager = this.getServer().getPluginManager();
 
     // Register chat listeners
-    pluginManager.registerEvents(new BukkitChatListener(this), this);
+    pluginManager.registerEvents(new BukkitChatHandler(this), this);
 
     new CapsHandler();
     new CustomPlaceholderHandler();
@@ -341,6 +341,13 @@ public final class CarbonChatBukkit extends JavaPlugin implements CarbonChat {
     }
 
     return Bukkit.getOfflinePlayer(name).getUniqueId();
+  }
+
+  @Override
+  public void cacheUUID(final @NonNull String name, final @NonNull UUID uuid) {
+    if (this.messageService() instanceof RedisMessageService) {
+      ((RedisMessageService) this.messageService()).set(name, uuid.toString());
+    }
   }
 
   public @NonNull MessageManager messageManager() {

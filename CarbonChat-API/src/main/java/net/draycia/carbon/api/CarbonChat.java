@@ -30,6 +30,8 @@ public interface CarbonChat {
 
   @NonNull UUID resolveUUID(@NonNull String name);
 
+  void cacheUUID(@NonNull String name, @NonNull UUID uuid);
+
   @NonNull Component resolveName(@NonNull UUID uuid);
 
   @NonNull Logger logger();

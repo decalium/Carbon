@@ -56,8 +56,9 @@ public class PingOptionsCommand {
     );
   }
 
+  @SuppressWarnings("NoLvTypeAnnotations")
   private void channelOptions(final @NonNull CommandContext<CarbonUser> context) {
-    @Subst("block.bell.resonate") String soundKey = context.get("sound");
+    final @Subst("block.bell.resonate") String soundKey = context.get("sound");
 
     ((PlayerUser) context.getSender()).pingOptions().pingSound(Sound.sound(Key.key(soundKey),
       Sound.Source.PLAYER, context.get("volume"), context.get("pitch")));
@@ -66,9 +67,9 @@ public class PingOptionsCommand {
       this.carbonChat.translations().channelPingChanged()));
   }
 
+  @SuppressWarnings("NoLvTypeAnnotations")
   private void whisperOptions(final @NonNull CommandContext<CarbonUser> context) {
-    @Subst("block.bell.resonate") String soundKey = context.get("sound");
-
+    final @Subst("block.bell.resonate") String soundKey = context.get("sound");
 
     ((PlayerUser) context.getSender()).pingOptions().whisperSound(Sound.sound(Key.key(soundKey),
       Sound.Source.PLAYER, context.get("volume"), context.get("pitch")));
