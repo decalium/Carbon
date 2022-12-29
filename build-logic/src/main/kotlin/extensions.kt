@@ -11,13 +11,6 @@ fun ShadowJar.relocateDependency(pkg: String) {
   relocate(pkg, "net.draycia.carbon.libs.$pkg")
 }
 
-fun ShadowJar.relocateNatives() {
-  relocate("darwin", "natives/darwin")
-  relocate("freebsd", "natives/freebsd")
-  relocate("linux", "natives/linux")
-  relocate("win", "natives/win")
-}
-
 /**
  * Relocates dependencies which we bundle and relocate on all platforms.
  */
@@ -42,8 +35,6 @@ fun ShadowJar.standardRelocations() {
   relocateDependency("com.rabbitmq")
   relocateDependency("com.electronwill")
   relocateDependency("net.byteflux")
-
-  relocateNatives();
 }
 
 fun ShadowJar.relocateCloud() {
