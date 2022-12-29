@@ -43,6 +43,7 @@ import net.draycia.carbon.common.users.CarbonPlayerCommon;
 import net.draycia.carbon.common.util.CloudUtils;
 import net.draycia.carbon.common.util.ListenerUtils;
 import net.draycia.carbon.common.util.PlayerUtils;
+import net.draycia.carbon.paper.command.DeleteMessageCommand;
 import net.draycia.carbon.paper.hooks.DSRVChatHook;
 import net.draycia.carbon.paper.listeners.DiscordMessageListener;
 import net.draycia.carbon.paper.listeners.PaperChatListener;
@@ -128,6 +129,9 @@ public final class CarbonChatPaper extends JavaPlugin implements CarbonChat {
         CloudUtils.loadCommands(this.injector);
         final var commandSettings = CloudUtils.loadCommandSettings(this.injector);
         CloudUtils.registerCommands(commandSettings);
+
+        final DeleteMessageCommand deleteMessageCommand = this.injector.getInstance(DeleteMessageCommand.class);
+        deleteMessageCommand.init();
 
         // Player data saving
         final long saveDelay = 5 * 60 * 20;
