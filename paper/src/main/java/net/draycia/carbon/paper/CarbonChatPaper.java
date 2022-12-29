@@ -30,6 +30,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
+import net.byteflux.libby.BukkitLibraryManager;
+import net.byteflux.libby.Library;
 import net.draycia.carbon.api.CarbonChat;
 import net.draycia.carbon.api.CarbonChatProvider;
 import net.draycia.carbon.api.channels.ChannelRegistry;
@@ -96,6 +98,47 @@ public final class CarbonChatPaper extends JavaPlugin implements CarbonChat {
             this.getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
+        final BukkitLibraryManager libraryManager = new BukkitLibraryManager(this);
+        libraryManager.addMavenCentral();
+        libraryManager.addSonatype();
+
+        // TODO: move this into common, supply library manager
+        final Library messenger = Library.builder()
+            .groupId("com.github.luben")
+            .artifactId("zstd-jni")
+            .version("1.5.1-1")
+            .relocate("com.github.luben", "net.draycia.carbon.libs.com.github.luben")
+            .build();
+
+        libraryManager.loadLibrary(messenger);
+
+        final Library guava = Library.builder()
+            .groupId("com.google.guava")
+            .artifactId("guava")
+            .version("30.1-jre")
+            .relocate("com.google.common", "net.draycia.carbon.libs.com.google.common")
+            .build();
+
+        libraryManager.loadLibrary(guava);
+
+        final Library protobuf = Library.builder()
+            .groupId("com.google.protobuf")
+            .artifactId("protobuf-java")
+            .version("3.19.4")
+            .relocate("com.google.protobuf", "net.draycia.carbon.libs.com.google.protobuf")
+            .build();
+
+        libraryManager.loadLibrary(protobuf);
+
+        final Library mysqlConnector = Library.builder()
+            .groupId("mysql")
+            .artifactId("mysql-connector-java")
+            .version("8.0.31")
+            .relocate("mysql-connector-java", "net.draycia.carbon.libs.mysql")
+            .build();
+
+        libraryManager.loadLibrary(mysqlConnector);
 
         CarbonChatProvider.register(this);
 

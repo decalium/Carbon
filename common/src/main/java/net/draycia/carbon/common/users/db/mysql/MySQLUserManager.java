@@ -71,7 +71,7 @@ public final class MySQLUserManager extends AbstractUserManager implements SaveO
         try {
             //Class.forName("org.postgresql.Driver");
             Class.forName("org.mariadb.jdbc.Driver");
-            Class.forName("com.mysql.cj.jdbc.Driver"); // Manually loading this might not be necessary
+            //Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (final Exception exception) {
             exception.printStackTrace();
         }
