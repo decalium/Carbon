@@ -71,7 +71,6 @@ public final class MySQLUserManager extends AbstractUserManager implements SaveO
         try {
             //Class.forName("org.postgresql.Driver");
             Class.forName("org.mariadb.jdbc.Driver");
-            //Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (final Exception exception) {
             exception.printStackTrace();
         }
@@ -89,6 +88,7 @@ public final class MySQLUserManager extends AbstractUserManager implements SaveO
             .baselineOnMigrate(true)
             .locations("queries/migrations/mysql")
             .dataSource(dataSource)
+            .validateMigrationNaming(true)
             .validateOnMigrate(true)
             .load();
 
