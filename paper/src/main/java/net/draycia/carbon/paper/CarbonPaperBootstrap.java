@@ -70,8 +70,8 @@ public final class CarbonPaperBootstrap extends JavaPlugin {
         // assume major version 1
         final int minor = PaperLib.getMinecraftVersion();
         final int patch = PaperLib.getMinecraftPatchVersion();
-        if (minor != 19 || patch < 3) {
-            return new UnsupportedPlatformException("Wrong Minecraft version (" + Bukkit.getMinecraftVersion() + "), this build of Carbon is for 1.19.3 and newer");
+        if (minor < 16) {
+            return new UnsupportedPlatformException("Wrong Minecraft version (" + Bukkit.getMinecraftVersion() + "), this build of Carbon is for 1.16 and newer");
         }
         return null;
     }

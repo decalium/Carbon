@@ -9,7 +9,7 @@ dependencies {
   implementation(projects.carbonchatCommon)
 
   // Server
-  compileOnly(libs.paperApi)
+  compileOnly("net.pl3x.purpur:purpur-api:1.16.5-R0.1-SNAPSHOT")
   implementation(libs.paperLib)
 
   // Commands
@@ -43,7 +43,7 @@ bukkit {
   name = rootProject.name
   version = project.version as String
   main = "net.draycia.carbon.paper.CarbonPaperBootstrap"
-  apiVersion = "1.19"
+  apiVersion = "1.16"
   author = "Draycia"
   depend = listOf("LuckPerms")
   softDepend = listOf("PlaceholderAPI", "EssentialsDiscord", "DiscordSRV")
